@@ -2,25 +2,38 @@ package com.schedulemaker.controllers;
 
 import com.schedulemaker.entities.Schedule;
 import com.schedulemaker.services.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PACKAGE;
+
 @RestController
+@AllArgsConstructor(access = PACKAGE)
 public class ScheduleController {
-    @Autowired
-    private ScheduleService scheduleService;
+    @NonNull
+    private final ScheduleService scheduleService;
 
-    @CrossOrigin
-    @GetMapping("/schedule/{id}")
-    public List<Schedule> getByUser(@PathVariable("id") long id) {
-        return scheduleService.getByUser(id);
+    @GetMapping("/schedules/{username}")
+    public List<Schedule> getByUsername(@PathVariable("username") String username) {
+        return scheduleService.getByUsername(username);
     }
 
-    @CrossOrigin
-    @PostMapping("/schedule")
-    public boolean addSchedule(@RequestBody Schedule schedule) {
-        return scheduleService.addSchedule(schedule);
+    @PostMapping("/schedules")
+    public Schedule addSchedule(@RequestBody Schedule schedule) {
+        return scheduleService.saveSchedule(schedule);
     }
+
+    @PutMapping("/schedules")
+    public Schedule updateSchedule(@RequestBody Schedule schedule) {
+        return scheduleService.saveSchedule(schedule);
+    }
+
+    @DeleteMapping("/schedules/{id}")
+    public void deleteSchedule(@PathVariable("id") long id) {
+        scheduleService.deleteSchedule(id);
+    }
+
 }

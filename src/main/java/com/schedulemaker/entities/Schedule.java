@@ -15,8 +15,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @JsonView
-    @Column(name = "user_id")
-    private long userId;
+    private String username;
     @JsonView
     private int hour;
     @JsonView
@@ -25,7 +24,7 @@ public class Schedule {
     private int day; // day of the week (0-6)
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName="id", insertable = false, updatable = false)
+    @JoinColumn(name="username", referencedColumnName="username", insertable = false, updatable = false)
     @JsonIgnore
     private User user;
 

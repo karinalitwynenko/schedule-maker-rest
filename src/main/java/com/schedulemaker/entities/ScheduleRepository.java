@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    public List<Schedule> findAllByUserId(long id);
+    List<Schedule> findAllByUsername(String username);
 }
